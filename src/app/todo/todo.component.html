@@ -1,32 +1,58 @@
 <div class="jumbotron">
-  <h1 class="display-4">{{ mainTitle }}</h1>
+  <h1 class="display-4">{{ mainTitle | lowercase }}</h1>
   <p class="lead">
     My daily todos
   </p>
   <hr class="my-4" />
-  <div class="input-group mb-3">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Enter todo"
-      aria-describedby="button-addon2"
-      #todo
-    />
-    <div class="input-group-append">
-      <button
-        class="btn btn-outline-secondary"
-        type="button"
-        id="button-addon2"
-        (click)="addTodo(todo)"
+  <!-- {{ inputTitle }} -->
+  <form #todoForm="ngForm">
+    <span *ngIf="todo.touched && !todo.valid">
+      <small class="text-danger" *ngIf="todo.errors.required"
+        >Please Enter Todo</small
       >
-        Add Todo
-      </button>
+      <small class="text-danger" *ngIf="todo.errors.minlength">
+        Please Enter Min Of {{ todo.errors.minlength.requiredLength }} Char..!
+      </small>
+    </span>
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter todo"
+        aria-describedby="button-addon2"
+        #todo="ngModel"
+        [(ngModel)]="inputTitle"
+        name="title"
+        required
+        minlength="3"
+        maxlength="100"
+        (change)="log(todo)"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          id="button-addon2"
+          (click)="addTodo(todo)"
+          [disabled]="!todoForm.form.valid"
+        >
+          Add Todo
+        </button>
+      </div>
     </div>
-  </div>
-
+    <!-- {{ todoForm.value | json }}
+    <br />
+    {{ "valid : " + todo.valid + "| invalid : " + todo.invalid }}
+    <br />
+    {{ "touched : " + todo.touched + "| untouched : " + todo.untouched }}
+    <br />
+    {{ "dirty : " + todo.dirty + "| pristine : " + todo.pristine }} -->
+  </form>
   <ul class="list-group list-group-flush">
     <li class="list-group-item" *ngFor="let todo of todos">
-      {{ todo.title }}
+      <span (click)="toggleTodo(todo.id)" [class.completed]="todo.isCompleted">
+        {{ todo.title }}</span
+      >
     </li>
   </ul>
 </div>
