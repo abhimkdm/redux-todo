@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Json Server",
+      "isCompleted": false
+    },
+    {
+      "id": 2,
+      "title": "Something",
+      "isCompleted": false
+    }
+  ]
+}

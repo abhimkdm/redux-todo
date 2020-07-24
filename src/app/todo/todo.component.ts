@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../services/todo-service.service';
+import { ITodo } from './todo.interface';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-todo',
@@ -8,34 +11,59 @@ import { Component, OnInit } from '@angular/core';
 export class TodoComponent implements OnInit {
   mainTitle: string = 'Todo';
   inputTitle: string;
-  public todos = [];
-  constructor() {}
+  public todos: ITodo[];
 
-  ngOnInit(): void {}
+  constructor(private service: TodoService) {
+    // this.service.todo;
+  }
 
-  addTodo(todoVal) {
-    if (!todoVal.value) return;
+  ngOnInit(): void {
+    //Services
+    this.service.getAll().subscribe(
+      (data) => {
+        this.todos = data;
+      },
+      (error) => {
+        console.log('Couldnt load the todos');
+      }
+    );
+  }
 
+  addTodo(todoForm: NgForm) {
+    if (!this.inputTitle) return;
     var todo = {
-      id: this.todos.length + 1,
-      title: todoVal.value,
+      id: 0,
+      title: this.inputTitle,
       isCompleted: false,
-    };
-    this.todos.push(todo);
-    todoVal.value = '';
+    } as ITodo;
+
+    this.service.saveTodo(todo).subscribe(
+      (data) => {
+        this.todos.push(data);
+      },
+      (error) => {}
+    );
+
+    todoForm.form.reset();
+    // var todo = {
+    //   id: this.todos.length + 1,
+    //   title: todoVal.value,
+    //   isCompleted: false,
+    // };
+    // this.todos.push(todo);
   }
 
   toggleTodo(id) {
-    //forloop
-    //foreach
-    //map
-    //ES 6 Arrow Function
+    //forloop //foreach //map //ES 6 - Arrow Function
     this.todos.map((todo) => {
       if (todo.id == id) todo.isCompleted = !todo.isCompleted;
     });
+
+    let uTodo = this.todos.find((d) => d.id == id) as ITodo;
+    this.service.toggleTodo(uTodo).subscribe();
   }
 
-  log(data) {
-    console.log(data);
-  }
+  // log(data) {
+  //   console.log(data);
+  // }
 }

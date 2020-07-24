@@ -26,14 +26,13 @@
         required
         minlength="3"
         maxlength="100"
-        (change)="log(todo)"
       />
       <div class="input-group-append">
         <button
           class="btn btn-outline-secondary"
           type="button"
           id="button-addon2"
-          (click)="addTodo(todo)"
+          (click)="addTodo(todoForm)"
           [disabled]="!todoForm.form.valid"
         >
           Add Todo
