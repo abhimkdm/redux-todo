@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TodoService } from '../services/todo-service.service';
 import { ITodo } from './todo.interface';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss'],
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent implements OnInit, OnDestroy {
   mainTitle: string = 'Todo';
   inputTitle: string;
   public todos: ITodo[];
+  public subscribe: Subscription;
 
   constructor(private service: TodoService) {
     // this.service.todo;
@@ -22,6 +24,7 @@ export class TodoComponent implements OnInit {
     this.service.getAll().subscribe(
       (data) => {
         this.todos = data;
+        this.service.bcast.next(data);
       },
       (error) => {
         console.log('Couldnt load the todos');
@@ -40,6 +43,7 @@ export class TodoComponent implements OnInit {
     this.service.saveTodo(todo).subscribe(
       (data) => {
         this.todos.push(data);
+        this.service.bcast.next(this.todos);
       },
       (error) => {}
     );
@@ -60,7 +64,14 @@ export class TodoComponent implements OnInit {
     });
 
     let uTodo = this.todos.find((d) => d.id == id) as ITodo;
-    this.service.toggleTodo(uTodo).subscribe();
+    this.service.toggleTodo(uTodo).subscribe((d) => {
+      this.service.bcast.next(this.todos);
+    });
+  }
+
+  ngOnDestroy(): void {
+    //When move C1 to C2. Helps for memmory leak.
+    this.subscribe.unsubscribe();
   }
 
   // log(data) {

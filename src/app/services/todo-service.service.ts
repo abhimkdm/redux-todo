@@ -1,12 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ITodo } from '../todo/todo.interface';
+import { map } from 'rxjs/operators';
+import { EventEmitter } from 'protractor';
 
 @Injectable()
 export class TodoService {
   public todo: string = 'From Service';
   url: string = 'http://localhost:3000/todos';
+  public bcast = new Subject<ITodo[]>(); // Holding multple
+  //// Pass the data
+  //Subject
+  //Local shared
+  //Local objects
+  // rounting query - id
+  // Redux -
+  //@input & @ouput - P - C
+
   //Making Http calls.
   constructor(private http: HttpClient) {}
 
@@ -28,6 +39,7 @@ export class TodoService {
 }
 
 //Register service in 3 ways
+
 //In Angular Module
 
 //In Service Itself ProviderIn : root

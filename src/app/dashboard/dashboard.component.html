@@ -1,0 +1,9 @@
+<div class="jumbotron">
+  <h1 class="display-4">Dashboard</h1>
+  <hr class="my-4" />
+  <p>Last Update On : {{ lastUpdateOn | date: "dd/mm/yyyy" }}</p>
+  <p>Total Count : {{ tTodoCount }}</p>
+  <p>Completed Count : {{ cTodoCount }}</p>
+  <P> Pending Count : {{ pTodoCount }} </P>
+  <a class="btn btn-danger btn-lg" href="#" role="button">Clear ALL</a>
+</div>

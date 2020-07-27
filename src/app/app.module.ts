@@ -5,6 +5,8 @@ import { TodoComponent } from './todo/todo.component';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from './services/todo-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ExamplesComponent } from './shared/examples/examples.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 //Shared Modules Customer,Orders
 //M1, M2, M3
 //Single Main module app
@@ -14,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     //Components
     AppComponent,
     TodoComponent,
+    ExamplesComponent,
+    DashboardComponent,
   ],
   imports: [
     //Modules
