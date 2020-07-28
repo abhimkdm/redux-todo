@@ -3,17 +3,17 @@
     {
       "id": 1,
       "title": "Json Server",
-      "isCompleted": true
+      "isCompleted": false
     },
     {
       "id": 2,
       "title": "Something",
-      "isCompleted": true
+      "isCompleted": false
     },
     {
       "id": 3,
       "title": "One more record",
-      "isCompleted": true
+      "isCompleted": false
     }
   ]
 }

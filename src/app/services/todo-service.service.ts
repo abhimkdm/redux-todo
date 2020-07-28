@@ -9,7 +9,7 @@ import { EventEmitter } from 'protractor';
 export class TodoService {
   public todo: string = 'From Service';
   url: string = 'http://localhost:3000/todos';
-  public bcast = new Subject<ITodo[]>(); // Holding multple
+  public bcast = new Subject<ITodo[]>(); // Holding multple Obervable
   //// Pass the data
   //Subject
   //Local shared

@@ -28,6 +28,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
   ngOnDestroy(): void {
     //When move C1 to C2. Helps for memmory leak.
-    this.subscribe.unsubscribe();
+    this.subscribe?.unsubscribe();
   }
 }

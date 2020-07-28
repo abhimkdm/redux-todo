@@ -71,7 +71,7 @@ export class TodoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     //When move C1 to C2. Helps for memmory leak.
-    this.subscribe.unsubscribe();
+    this.subscribe?.unsubscribe();
   }
 
   // log(data) {
