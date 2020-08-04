@@ -1,6 +1,10 @@
 <nav class="navbar navbar-dark bg-dark">
   <span class="navbar-brand mb-0 h1">Welcome, {{ user }}</span>
-  <a type="button" class="btn btn-outline-danger text-info" routerLink="/login"
+  <a
+    type="button"
+    class="btn btn-outline-danger text-info"
+    (click)="LogOut()"
+    routerLink="/login"
     >LogOut</a
   >
 </nav>

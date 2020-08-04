@@ -8,21 +8,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExamplesComponent } from './shared/examples/examples.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SearchPipe } from './pipes/search.pipe';
-import { RouterModule, Routes } from '@angular/router';
+
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SocialLoginModule } from 'angularx-social-login';
+
+import { RoutingModule } from './routing.module';
+import { socialConfig } from './config/social.config';
 //Shared Modules Customer,Orders
 //M1, M2, M3
 //Single Main module app
-
-const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'home/:name', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: '**', component: PageNotFoundComponent },
-];
 
 @NgModule({
   declarations: [
@@ -40,12 +35,14 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    RoutingModule,
+    SocialLoginModule,
     //RouterModule.forChild(routes) // Shared Module M1 - routes
   ],
   providers: [
     //Services
     TodoService, // Available for all the component and Single instance - Singleton Patern
+    socialConfig,
   ],
   bootstrap: [
     //Startup component
